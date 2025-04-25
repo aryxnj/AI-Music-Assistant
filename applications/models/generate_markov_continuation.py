@@ -2,8 +2,6 @@ import pickle
 import random
 import mido
 from collections import defaultdict
-HERE = os.path.dirname(os.path.abspath(__file__))
-model_path = os.path.join(HERE, "markov_model.pkl") 
 
 def load_markov_model(model_path):
     """
@@ -128,6 +126,7 @@ def run_markov_continuation(input_midi_path, output_midi_path):
     Returns the output MIDI path.
     """
     # 1. Load the pre-trained Markov model
+    model_path = "models/markov_model.pkl"
     transition_probs = load_markov_model(model_path)
     
     # 2. Parse the input MIDI (monophonic) into a seed melody

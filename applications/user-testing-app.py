@@ -1,7 +1,3 @@
-import os
-# ─ make every relative path resolve from this file’s folder ─
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-os.chdir(BASE_DIR)
 import streamlit as st
 from sqlalchemy import create_engine, text
 from pathlib import Path

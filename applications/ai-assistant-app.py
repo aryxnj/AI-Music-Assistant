@@ -1,5 +1,5 @@
-import os
 import streamlit as st
+import os
 import io
 import tempfile
 import shutil
@@ -13,33 +13,6 @@ from midi2audio import FluidSynth
 from tqdm import tqdm
 from models.generate_lstm_continuation import run_lstm_continuation
 from models.generate_markov_continuation import run_markov_continuation
-
-HERE = os.path.dirname(os.path.abspath(__file__))
-
-# Keep originals
-_orig_image = st.image
-_orig_video = st.video
-_orig_audio = st.audio
-
-def _resolve(path):
-    # if it's a string, not absolute/URL, and exists under HERE, prefix it
-    if isinstance(path, str) and not (path.startswith(("http://","https://","/"))) and \
-       os.path.exists(os.path.join(HERE, path)):
-        return os.path.join(HERE, path)
-    return path
-
-# Monkey-patch
-def image(path, *args, **kwargs):
-    return _orig_image(_resolve(path), *args, **kwargs)
-st.image = image
-
-def video(path, *args, **kwargs):
-    return _orig_video(_resolve(path), *args, **kwargs)
-st.video = video
-
-def audio(path, *args, **kwargs):
-    return _orig_audio(_resolve(path), *args, **kwargs)
-st.audio = audio
 
 # ===============================
 # Piano Roll Videos Script Logic
@@ -436,8 +409,7 @@ def render_sidebar():
 
 # Page 1: Welcome
 def welcome_page():
-    banner_path = os.path.join(HERE, "banner.png")
-    st.image(banner_path, use_container_width=True)
+    st.image("banner.png", use_container_width=True)
     st.title("Welcome to: AI Music Assistant 🎵")
     st.markdown("""
         This interactive app allows you to upload (or select) a MIDI file and explore 
@@ -550,14 +522,12 @@ def select_model_page():
                 st.session_state.uploaded_midi = uploaded_file.getvalue()
             else:
                 sample_path = sample_options[chosen_sample]
-                full_sample_path = os.path.join(HERE, sample_path)
                 try:
-                    with open(full_sample_path, 'rb') as f:
+                    with open(sample_path, 'rb') as f:
                         st.session_state.uploaded_midi = f.read()
                 except Exception as e:
-                    st.error(f"Unable to load sample (looked in {full_sample_path}): {e}")
+                    st.error(f"Unable to load sample: {e}")
                     return
-
 
             st.session_state.selected_model = chosen_model
             st.session_state.preview_shown = True
@@ -680,8 +650,8 @@ def output_page():
 
 # Page 5: Closing
 def closing_page():
-    closing_banner_path = os.path.join(HERE, "closing_banner.png")
-    st.image(closing_banner_path, use_container_width=True)
+    if os.path.exists("closing_banner.png"):
+        st.image("closing_banner.png", use_container_width=True)
 
     st.title("Thank You for Using the AI Music Assistant!")
     st.markdown("""
