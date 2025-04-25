@@ -4,7 +4,7 @@ import numpy as np
 import tensorflow as tf
 import pretty_midi
 HERE = os.path.dirname(os.path.abspath(__file__))
-MODEL_PATH = os.path.join(HERE, "models/lstm_model.h5")   # Adjust filename if needed
+MODEL_PATH = os.path.join(HERE, "lstm_model.h5")   # Adjust filename if needed
 
 ##############################
 # Configuration & Constants  #
