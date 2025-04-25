@@ -550,12 +550,14 @@ def select_model_page():
                 st.session_state.uploaded_midi = uploaded_file.getvalue()
             else:
                 sample_path = sample_options[chosen_sample]
+                full_sample_path = os.path.join(HERE, sample_path)
                 try:
-                    with open(sample_path, 'rb') as f:
+                    with open(full_sample_path, 'rb') as f:
                         st.session_state.uploaded_midi = f.read()
                 except Exception as e:
-                    st.error(f"Unable to load sample: {e}")
+                    st.error(f"Unable to load sample (looked in {full_sample_path}): {e}")
                     return
+
 
             st.session_state.selected_model = chosen_model
             st.session_state.preview_shown = True
