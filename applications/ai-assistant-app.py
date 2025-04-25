@@ -13,7 +13,33 @@ from midi2audio import FluidSynth
 from tqdm import tqdm
 from models.generate_lstm_continuation import run_lstm_continuation
 from models.generate_markov_continuation import run_markov_continuation
+
 HERE = os.path.dirname(os.path.abspath(__file__))
+
+# Keep originals
+_orig_image = st.image
+_orig_video = st.video
+_orig_audio = st.audio
+
+def _resolve(path):
+    # if it's a string, not absolute/URL, and exists under HERE, prefix it
+    if isinstance(path, str) and not (path.startswith(("http://","https://","/"))) and \
+       os.path.exists(os.path.join(HERE, path)):
+        return os.path.join(HERE, path)
+    return path
+
+# Monkey-patch
+def image(path, *args, **kwargs):
+    return _orig_image(_resolve(path), *args, **kwargs)
+st.image = image
+
+def video(path, *args, **kwargs):
+    return _orig_video(_resolve(path), *args, **kwargs)
+st.video = video
+
+def audio(path, *args, **kwargs):
+    return _orig_audio(_resolve(path), *args, **kwargs)
+st.audio = audio
 
 # ===============================
 # Piano Roll Videos Script Logic
