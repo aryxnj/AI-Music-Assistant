@@ -116,7 +116,7 @@ If you build on this work please cite:
 
 ## 6  Licence & acknowledgements
 
-* **Code** – MIT Licence (see `LICENSE`).  
+* **Code** – MIT Licence (`LICENSE`).  
 * **Datasets**  
   * _Mono-MIDI Transposition Dataset_ – MIT Licence  
   * _4-Bars Monophonic Melodies_ (Zenodo 13369389) – CC BY-4.0  
