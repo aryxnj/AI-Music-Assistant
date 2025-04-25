@@ -13,6 +13,7 @@ from midi2audio import FluidSynth
 from tqdm import tqdm
 from models.generate_lstm_continuation import run_lstm_continuation
 from models.generate_markov_continuation import run_markov_continuation
+HERE = os.path.dirname(os.path.abspath(__file__))
 
 # ===============================
 # Piano Roll Videos Script Logic
@@ -409,7 +410,8 @@ def render_sidebar():
 
 # Page 1: Welcome
 def welcome_page():
-    st.image("banner.png", use_container_width=True)
+    banner_path = os.path.join(HERE, "banner.png")
+    st.image(banner_path, use_container_width=True)
     st.title("Welcome to: AI Music Assistant 🎵")
     st.markdown("""
         This interactive app allows you to upload (or select) a MIDI file and explore 
@@ -650,8 +652,8 @@ def output_page():
 
 # Page 5: Closing
 def closing_page():
-    if os.path.exists("closing_banner.png"):
-        st.image("closing_banner.png", use_container_width=True)
+    closing_banner_path = os.path.join(HERE, "closing_banner.png")
+    st.image(closing_banner_path, use_container_width=True)
 
     st.title("Thank You for Using the AI Music Assistant!")
     st.markdown("""
