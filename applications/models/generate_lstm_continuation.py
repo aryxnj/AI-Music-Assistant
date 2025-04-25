@@ -3,11 +3,13 @@ import os
 import numpy as np
 import tensorflow as tf
 import pretty_midi
+HERE = os.path.dirname(os.path.abspath(__file__))
+MODEL_PATH = os.path.join(HERE, "models/lstm_model.h5")   # Adjust filename if needed
 
 ##############################
 # Configuration & Constants  #
 ##############################
-MODEL_PATH = "models/lstm_model.h5"  # Update the path as needed
+# MODEL_PATH = "models/lstm_model.h5"  # Update the path as needed
 # The following defaults can be overridden by function parameters
 DEFAULT_NUM_GENERATION_STEPS = 16  # How many new notes to generate
 DEFAULT_TEMPERATURE = 0.6          # Lower => more predictable
